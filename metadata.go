@@ -216,7 +216,7 @@ func (c *SpircController) GetTrack(id string) (*Spotify.Track, error) {
 }
 
 func (c *SpircController) GetArtistMeta(artistId string) (*ArtistMetadataResponse, error) {
-	url := "hm://artist/v2/" + artistId + "/desktop?format=json&locale=en"
+	url := "hm://artist/v1/" + artistId + "/desktop?format=json&locale=en"
 	result := &ArtistMetadataResponse{}
 	err := c.mercuryGetJson(url, result)
 	return result, err

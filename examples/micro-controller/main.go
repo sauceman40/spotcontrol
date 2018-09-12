@@ -138,6 +138,10 @@ func main() {
 			result, err := sController.GetArtistMeta(cmds[1])
 			fmt.Println("RESULT: ", result)
 			fmt.Println("ERR: ", err)
+		case cmd[0] == "search":
+			result, err := sController.Search(cmds[1])
+			fmt.Println("RESULT: ", result)
+			fmt.Println("ERR: ", err)
 		case cmds[0] == "load":
 			ident = getDevice(sController, ident, reader)
 			if ident != "" {

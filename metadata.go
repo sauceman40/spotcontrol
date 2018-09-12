@@ -70,7 +70,7 @@ type PlayCountTrack struct {
 	Release struct {
 		Uri string `json:"uri"`
 		Name string `json:"name"`
-		Cover Image `json:"image"`
+		Cover Image `json:"cover"`
 	} `json:"release"`
 	Explicit bool `json:"explicit"`
 }
@@ -88,7 +88,6 @@ type TopTracksResponse struct {
 		MonthlyListeners int64 `json:"monthlyListeners"`
 		GlobalChartPosition int64 `json:"globalChartPosition"`
 	} `json:"creator_about"`
-	Error error
 }
 
 func (c *SpircController) mercuryGet(url string) []byte {

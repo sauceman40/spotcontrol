@@ -94,7 +94,7 @@ type CityListeners struct {
 	Country string `json:"country"`
 	Region string `json:"region"`
 	City string `json:"city"`
-	ListenerCount string `json:"listeners"`
+	ListenerCount int64 `json:"listeners"`
 }
 
 type ArtistInsightsResponse struct {

@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"github.com/badfortrains/spotcontrol"
+	"github.com/sauceman40/spotcontrol"
 	"os"
 	"strconv"
 	"strings"
@@ -80,6 +80,7 @@ func addMdns(controller *spotcontrol.SpircController, reader *bufio.Reader) {
 
 func printHelp() {
 	fmt.Println("\nAvailable commands:")
+	fmt.Println("artist <artist id> artist metadata by spotify base 62 id")
 	fmt.Println("load <track1> [...more tracks]: load tracks by spotify base 62 id")
 	fmt.Println("hello:                          ask devices to identify themselves")
 	fmt.Println("play:                           play current track")
@@ -133,6 +134,10 @@ func main() {
 		cmds := strings.Split(strings.TrimSpace(text), " ")
 
 		switch {
+		case cmds[0] == "artist":
+			result, err := sController.GetArtistMeta(cmds[1])
+			fmt.Println("RESULT: ", result)
+			fmt.Println("ERR: ", err)
 		case cmds[0] == "load":
 			ident = getDevice(sController, ident, reader)
 			if ident != "" {

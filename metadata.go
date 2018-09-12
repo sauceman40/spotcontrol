@@ -59,6 +59,38 @@ type SearchResult struct {
 	Error error
 }
 
+type Image struct {
+	Uri string `json:"uri"`
+}
+
+type PlayCountTrack struct {
+	Uri string `json:"uri"`
+	PlayCount int64 `json:"playcount"`
+	Name string `json:"name"`
+	Release struct {
+		Uri string `json:"uri"`
+		Name string `json:"name"`
+		Cover Image `json:"image"`
+	} `json:"release"`
+	Explicit bool `json:"explicit"`
+}
+
+type TopTracksResponse struct {
+	ArtistInfo struct {
+		Uri string `json:"uri"`
+		Name string `json:"name"`
+		Portraits []Image `json:"portraits"`
+	} `json:"info"`
+	TopTracks struct {
+		Tracks []PlayCountTrack `json:"tracks"`
+	} `json:"top_tracks"`
+	CreatorAbout struct {
+		MonthlyListeners int64 `json:"monthlyListeners"`
+		GlobalChartPosition int64 `json:"globalChartPosition"`
+	} `json:"creator_about"`
+	Error error
+}
+
 func (c *SpircController) mercuryGet(url string) []byte {
 	done := make(chan []byte)
 	go c.session.mercurySendRequest(mercuryRequest{
@@ -164,5 +196,12 @@ func (c *SpircController) GetTrack(id string) (*Spotify.Track, error) {
 	url := "hm://metadata/3/track/" + id
 	result := &Spotify.Track{}
 	err := c.mercuryGetProto(url, result)
+	return result, err
+}
+
+func (c *SpircController) GetArtistMeta(artistId string) (*TopTracksResponse, error) {
+	url := "hm://artist/v1/" + artistId + "/desktop?format=json&locale=en" + id
+	result := &TopTracksResponse{}
+	err := c.mercuryGetJson(url, result)
 	return result, err
 }
